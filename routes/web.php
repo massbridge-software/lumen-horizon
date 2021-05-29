@@ -40,3 +40,5 @@ $router->group([
     $router->post('/jobs/retry/{id}', 'RetryController@store');
     $router->get('/jobs/{id}', 'JobsController@show');
 });
+
+$router->get('/{route:.*}', 'HomeController@index');
