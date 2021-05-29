@@ -20,7 +20,11 @@ class HorizonServiceProvider extends ServiceProvider
     {
         $this->registerEvents();
         $this->registerRoutes();
+        $this->registerResources();
+        $this->defineAssetPublishing();
         $this->registerRedisAlias();
+
+
     }
 
     /**
@@ -54,6 +58,17 @@ class HorizonServiceProvider extends ServiceProvider
         ], function ($router) {
             require __DIR__ . '/../routes/web.php';
         });
+    }
+
+
+    /**
+     * Register the Horizon resources.
+     *
+     * @return void
+     */
+    protected function registerResources()
+    {
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'horizon');
     }
 
     /**
@@ -102,6 +117,19 @@ class HorizonServiceProvider extends ServiceProvider
         $this->registerServices();
         $this->registerCommands();
         $this->registerQueueConnectors();
+    }
+
+
+    /**
+     * Define the asset publishing configuration.
+     *
+     * @return void
+     */
+    public function defineAssetPublishing()
+    {
+        $this->publishes([
+            HORIZON_PATH.'/public' => base_path('public/vendor/horizon'),
+        ], 'horizon-assets');
     }
 
     /**
@@ -167,6 +195,7 @@ class HorizonServiceProvider extends ServiceProvider
                 Console\TerminateCommand::class,
                 Console\TimeoutCommand::class,
                 Console\WorkCommand::class,
+                Console\InstallCommand::class,
             ]);
         }
 
