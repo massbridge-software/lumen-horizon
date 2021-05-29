@@ -27,7 +27,8 @@ class WorkCommand extends BaseWorkCommand
                             {--sleep=3 : Number of seconds to sleep when no job is available}
                             {--supervisor= : The name of the supervisor the worker belongs to}
                             {--timeout=60 : The number of seconds a child process can run}
-                            {--tries=0 : Number of times to attempt a job before logging it failed}';
+                            {--tries=0 : Number of times to attempt a job before logging it failed}
+                            {--rest=0 : Number of seconds to rest between jobs}';
 
     /**
      * Indicates whether the command should be shown in the Artisan command list.
