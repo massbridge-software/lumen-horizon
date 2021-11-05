@@ -54,7 +54,7 @@ class HorizonServiceProvider extends ServiceProvider
             'domain' => config('horizon.domain', null),
             'prefix' => config('horizon.path'),
             'namespace' => 'Laravel\Horizon\Http\Controllers',
-            'middleware' => config('horizon.middleware', 'web'),
+//            'middleware' => config('horizon.middleware', 'web'),
         ], function ($router) {
             require __DIR__ . '/../routes/web.php';
         });
