@@ -28,6 +28,7 @@ class HorizonApplicationServiceProvider extends ServiceProvider
 
         Horizon::auth(function ($request) {
             return app()->environment('local') ||
+                   app()->environment('staging') ||
                    Gate::check('viewHorizon', [$request->user()]);
         });
     }
@@ -42,9 +43,7 @@ class HorizonApplicationServiceProvider extends ServiceProvider
     protected function gate()
     {
         Gate::define('viewHorizon', function ($user) {
-            return in_array($user->email, [
-                //
-            ]);
+            return in_array($user->id, explode(',', getenv('QUEUE_ADMIN_USERS')));
         });
     }
 
