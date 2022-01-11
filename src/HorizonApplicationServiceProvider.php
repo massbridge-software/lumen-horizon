@@ -27,9 +27,10 @@ class HorizonApplicationServiceProvider extends ServiceProvider
         $this->gate();
 
         Horizon::auth(function ($request) {
+            $uid = $request->session()->get('uid');
             return app()->environment('local') ||
-                   app()->environment('staging') ||
-                   Gate::check('viewHorizon', [$request->user()]);
+                in_array($uid, explode(',', getenv('QUEUE_ADMIN_USERS'))) ||
+                Gate::check('viewHorizon', [$request->user()]);
         });
     }
 
